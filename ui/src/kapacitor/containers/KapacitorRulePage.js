@@ -253,17 +253,8 @@ export const KapacitorRulePage = React.createClass({
       <div className="kapacitor-rule-section">
         <h3 className="rule-section-heading">Alert Message</h3>
         <div className="rule-section-body">
-          <textarea className="alert-message" ref={(r) => this.message = r} onChange={() => this.handleMessageChange(rule)} placeholder="Compose your alert message here"/>
+          <textarea className="alert-message" ref={(r) => this.message = r} value={rule.message} onChange={() => this.handleMessageChange(rule)} placeholder="Compose your alert message here"/>
           <div className="rule-section--item bottom">
-            {/* For future use, will be very handy to users
-            <div className="alert-message-key">
-              <label>ACTIONS:</label>
-              <div>
-                <span>&#123;&#123;host&#125;&#125;</span>
-                <span>&#123;&#123;cpu&#125;&#125;</span>
-                <span>&#123;&#123;timestamp&#125;&#125;</span>
-              </div>
-            </div> */}
             <div className="alert-message-endpoint">
               <p>Send this Alert to:</p>
               <Dropdown className="size-256" selected={rule.alerts[0] || 'Choose an output'} items={alerts} onChoose={this.handleChooseAlert} />
