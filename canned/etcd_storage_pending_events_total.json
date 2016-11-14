@@ -1,0 +1,20 @@
+ {
+    "id": "1e7f46eb-5eb6-4eed-974f-dc709a1de821",
+ 	"measurement": "etcd_storage_pending_events_total",
+ 	"app": "etcd",
+ 	"cells": [{
+ 		"x": 0,
+ 		"y": 0,
+ 		"w": 4,
+ 		"h": 4,
+        "i": "d2e37160-43e6-4ffe-aafd-827bcc3e3aec",
+        "name": "etcd - Pending Events",
+ 		"queries": [{
+ 			"query": "select non_negative_derivative(max(\"counter\")) AS \"Events\" from \"etcd_storage_pending_events_total\"",
+ 			"db": "telegraf",
+ 			"rp": "",
+  			"groupbys": [],
+  			"wheres": []
+		}]
+ 	}]
+ }

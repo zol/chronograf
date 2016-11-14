@@ -1,0 +1,23 @@
+ {
+    "id": "2fc51464-df47-4a47-a021-54ed82102705",
+ 	"measurement": "etcd_http_failed_total",
+ 	"app": "etcd",
+ 	"cells": [{
+ 		"x": 0,
+ 		"y": 0,
+ 		"w": 4,
+ 		"h": 4,
+        "i": "0db55437-eefa-4504-b04f-8b58805c7907",
+        "name": "etcd - HTTP Requests",
+ 		"queries": [{
+ 			"query": "select non_negative_derivative(max(\"counter\")) AS \"Requests\" from \"etcd_http_failed_total\"",
+ 			"db": "telegraf",
+ 			"rp": "",
+  			"groupbys": [
+  				"\"cluster_id\"",
+  				"\"method\"",
+  			],
+  			"wheres": []
+		}]
+ 	}]
+ }

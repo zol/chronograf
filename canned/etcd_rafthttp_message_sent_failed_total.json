@@ -1,0 +1,20 @@
+ {
+    "id": "675d90b6-3b46-4f4d-a009-d5e09c6d21e4",
+ 	"measurement": "etcd_rafthttp_message_sent_failed_total",
+ 	"app": "User Facing Application Name",
+ 	"cells": [{
+ 		"x": 0,
+ 		"y": 0,
+ 		"w": 4,
+ 		"h": 4,
+        "i": "e65cff9f-fc66-4e59-89c1-3e9b669ffedd",
+        "name": "User facing cell Name",
+ 		"queries": [{
+ 			"query": "select used_percent from disk",
+ 			"db": "telegraf",
+ 			"rp": "",
+  			"groupbys": [],
+  			"wheres": []
+		}]
+ 	}]
+ }

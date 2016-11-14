@@ -1,0 +1,20 @@
+ {
+    "id": "bec12531-be22-491a-add4-9b595b3e6d71",
+ 	"measurement": "etcd_server_proposal_failed_total",
+ 	"app": "User Facing Application Name",
+ 	"cells": [{
+ 		"x": 0,
+ 		"y": 0,
+ 		"w": 4,
+ 		"h": 4,
+        "i": "d83f7de5-dc18-4e0d-857a-d8a906f2bf45",
+        "name": "User facing cell Name",
+ 		"queries": [{
+ 			"query": "select used_percent from disk",
+ 			"db": "telegraf",
+ 			"rp": "",
+  			"groupbys": [],
+  			"wheres": []
+		}]
+ 	}]
+ }
