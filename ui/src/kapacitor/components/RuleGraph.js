@@ -3,6 +3,8 @@ import selectStatement from 'src/chronograf/utils/influxql/select';
 import AutoRefresh from 'shared/components/AutoRefresh';
 import LineGraph from 'shared/components/LineGraph';
 const RefreshingLineGraph = AutoRefresh(LineGraph);
+import {proxy} from 'utils/queryUrlGenerator';
+import _ from 'lodash';
 
 export const RuleGraph = React.createClass({
   propTypes: {
@@ -51,11 +53,41 @@ export const RuleGraph = React.createClass({
   },
 
   createUnderlayCallback() {
-    const {rule} = this.props;
-    return (canvas, area, dygraph) => {
-      if (rule.trigger !== 'threshold' || rule.values.value === '') {
+    const {rule, source} = this.props;
+
+    return (data) => async (canvas, area, dygraph) => {
+      if (rule.trigger === 'deadman' || rule.values.value === '') {
         return;
       }
+
+      let series;
+
+      if (rule.trigger === 'relative') {
+        try {
+          const result = await proxy({
+            source: source.links.proxy,
+            query: `SELECT mean("usage_idle") AS "mean_usage_idle" FROM "telegraf"."autogen"."cpu" WHERE time > ${dygraph.getValue(0, 0)} - ${rule.values.shift}`,
+            db: "chronograf",
+          });
+          series = _.get(result, ['data', 'results', '0', 'series'], []);
+          console.log(result);
+        }
+        catch (error) {
+          console.error(error);
+        }
+      }
+
+      console.log(series)
+
+      console.log(area)
+      console.log(dygraph.getValue(0, 0))
+      const bleghdata = data[0].response.results[0].series[0]
+      console.log(rule.values.shift)
+      // const interval = moment.duration(rule.values.shift)
+      const range = dygraph.xAxisRange()
+      // console.log(interval.as('seconds'))
+      console.log(range[1] - range[0])
+      console.log('range', range)
 
       const theOnePercent = 0.01;
       let highlightStart = 0;

@@ -8,6 +8,11 @@ import {createRule, editRule} from 'src/kapacitor/apis';
 import selectStatement from '../../chronograf/utils/influxql/select';
 import timeRanges from 'hson!../../shared/data/timeRanges.hson';
 
+const log = (item) => {
+  console.log(JSON.stringify(item, null, 2))
+  return item
+}
+
 export const KapacitorRule = React.createClass({
   propTypes: {
     source: PropTypes.shape({}).isRequired,
@@ -60,7 +65,7 @@ export const KapacitorRule = React.createClass({
                     onChooseTrigger={chooseTrigger}
                     onUpdateValues={updateRuleValues}
                   />
-                  <RuleGraph timeRange={timeRange} source={source} query={query} rule={rule} />
+                  <RuleGraph timeRange={log(timeRange)} source={source} query={query} rule={rule} />
                   <RuleMessage rule={rule} actions={kapacitorActions} enabledAlerts={enabledAlerts} />
                 </div>
               </div>

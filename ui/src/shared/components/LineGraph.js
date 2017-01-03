@@ -70,7 +70,7 @@ export default React.createClass({
       yRangePad: 10,
       axisLabelWidth: 38,
       drawAxesAtZero: true,
-      underlayCallback,
+      underlayCallback: underlayCallback(data),
       ylabel: _.get(queries, ['0', 'label'], ''),
       y2label: _.get(queries, ['1', 'label'], ''),
     };
