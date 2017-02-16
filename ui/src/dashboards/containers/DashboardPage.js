@@ -1,10 +1,8 @@
 import React, {PropTypes} from 'react';
-import ReactTooltip from 'react-tooltip';
-import {Link} from 'react-router';
 import _ from 'lodash';
 
 import LayoutRenderer from 'shared/components/LayoutRenderer';
-import TimeRangeDropdown from '../../shared/components/TimeRangeDropdown';
+import DashboardHeader from 'src/dashboards/components/Header';
 import timeRanges from 'hson!../../shared/data/timeRanges.hson';
 
 import {getDashboards} from '../apis';
@@ -24,22 +22,38 @@ const DashboardPage = React.createClass({
     return {
       dashboards: [],
       timeRange: timeRanges[fifteenMinutesIndex],
+      dashboard: null,
     };
   },
 
   componentDidMount() {
-    getDashboards().then((resp) => {
-      getSource(this.props.params.sourceID).then(({data: source}) => {
+    const {sourceID, dashboardID} = this.props.params;
+
+    getDashboards().then(({data}) => {
+      getSource(sourceID).then(({data: source}) => {
+        const dashboards = data.dashboards;
+        const dashboard = _.find(dashboards, (d) => d.id.toString() === dashboardID);
+
         this.setState({
-          dashboards: resp.data.dashboards,
+          dashboards,
+          dashboard,
           source,
         });
       });
     });
   },
 
-  currentDashboard(dashboards, dashboardID) {
-    return _.find(dashboards, (d) => d.id.toString() === dashboardID);
+  componentDidUpdate(prevProps) {
+    const {dashboardID} = this.props.params;
+    const {dashboards} = this.state;
+
+    if (prevProps.params.dashboardID === dashboardID) {
+      return;
+    }
+
+    this.setState({
+      dashboard: _.find(dashboards, (d) => d.id.toString() === dashboardID),
+    })
   },
 
   renderDashboard(dashboard) {
@@ -81,42 +95,18 @@ const DashboardPage = React.createClass({
   },
 
   render() {
-    const {dashboards, timeRange} = this.state;
-    const dashboard = this.currentDashboard(dashboards, this.props.params.dashboardID);
+    const {params} = this.props;
+    const {dashboards, timeRange, dashboard} = this.state;
 
     return (
       <div className="page">
-        <div className="page-header full-width">
-          <div className="page-header__container">
-            <div className="page-header__left">
-              <div className="dropdown page-header-dropdown">
-                <button className="dropdown-toggle" type="button" data-toggle="dropdown">
-                  <span className="button-text">{dashboard ? dashboard.name : ''}</span>
-                  <span className="caret"></span>
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  {(dashboards).map((d, i) => {
-                    return (
-                      <li key={i}>
-                        <Link to={`/sources/${this.props.params.sourceID}/dashboards/${d.id}`} className="role-option">
-                          {d.name}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-            <div className="page-header__right">
-              <div className="btn btn-info btn-sm" data-for="graph-tips-tooltip" data-tip="<p><code>Click + Drag</code> Zoom in (X or Y)</p><p><code>Shift + Click</code> Pan Graph Window</p><p><code>Double Click</code> Reset Graph Window</p>">
-                <span className="icon heart"></span>
-                Graph Tips
-              </div>
-              <ReactTooltip id="graph-tips-tooltip" effect="solid" html={true} offset={{top: 2}} place="bottom" class="influx-tooltip place-bottom" />
-              <TimeRangeDropdown onChooseTimeRange={this.handleChooseTimeRange} selected={timeRange.inputValue} />
-            </div>
-          </div>
-        </div>
+        <DashboardHeader
+          dashboards={dashboards}
+          name={dashboard && dashboard.name || ''}
+          onChooseTimeRange={this.handleChooseTimeRange}
+          timeRange={timeRange}
+          sourceID={params.sourceID}
+        />
         <div className="page-contents">
           <div className="container-fluid full-width">
             { dashboard ? this.renderDashboard(dashboard) : '' }
