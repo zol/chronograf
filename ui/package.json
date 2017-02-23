@@ -11,7 +11,7 @@
   "scripts": {
     "build": "npm run clean && env NODE_ENV=production node_modules/webpack/bin/webpack.js -p --config ./webpack/prodConfig.js",
     "build:dev": "node_modules/webpack/bin/webpack.js --config ./webpack/devConfig.js",
-    "start": "node_modules/webpack/bin/webpack.js -w --config ./webpack/devConfig.js",
+    "start": "node_modules/webpack/bin/webpack.js -w --config ./webpack/devconfig.js",
     "lint": "node_modules/eslint/bin/eslint.js src/",
     "test": "karma start",
     "test:lint": "npm run lint; npm run test",
@@ -90,15 +90,18 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "axios": "^0.13.1",
+    "axios": "^0.15.3",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.3",
     "dygraphs": "^1.1.1",
     "fast.js": "^0.1.1",
     "fixed-data-table": "^0.6.1",
+    "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.0",
     "lodash": "^4.3.0",
     "moment": "^2.13.0",
+    "moxios": "^0.3.0",
+    "nock": "^9.0.6",
     "node-uuid": "^1.4.7",
     "react": "^15.0.2",
     "react-addons-shallow-compare": "^15.0.2",
@@ -112,6 +115,7 @@
     "react-sparklines": "^1.4.2",
     "react-tooltip": "^3.2.1",
     "redux": "^3.3.1",
+    "redux-mock-store": "^1.2.2",
     "redux-thunk": "^1.0.3",
     "updeep": "^0.13.0"
   }

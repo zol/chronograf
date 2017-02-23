@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 var path = require('path');
 var hostname = 'localhost';
 var port = 7357;
@@ -56,5 +57,11 @@ module.exports = {
       utils: path.resolve(__dirname, '..', 'src', 'utils'),
       sinon: 'sinon/pkg/sinon',
     }
-  }
+  },
+  plugins: [
+    new webpack.IgnorePlugin(/^fs$/)
+  ],
+  externals: {
+    fs: '{}'
+  },
 };

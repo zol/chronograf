@@ -42,9 +42,10 @@ export function setEditMode(isEditMode) {
 
 export function getDashboards(dashboardID) {
   return (dispatch) => {
-    getDashboardsAJAX().then(({data: {dashboards}}) => {
-      dispatch(loadDashboards(dashboards, dashboardID))
-    });
+    return getDashboardsAJAX()
+      .then(({dashboards}) => {
+        dispatch(loadDashboards(dashboards, dashboardID))
+      }).catch(err => console.log('ERROR: ', err))
   }
 }
 

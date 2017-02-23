@@ -48,7 +48,8 @@ module.exports = function(config) {
       externals: {
         'react/addons': true,
         'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true
+        'react/lib/ReactContext': true,
+        fs: '{}',
       },
       resolve: {
         alias: {

@@ -105,6 +105,9 @@ var config = {
   ],
   postcss: require('./postcss'),
   target: 'web',
+  externals: {
+    fs: '{}'
+  },
 };
 
 module.exports = config;

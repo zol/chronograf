@@ -84,4 +84,7 @@ module.exports = {
   ],
   postcss: require('./postcss'),
   target: 'web',
+  externals: {
+    fs: '{}'
+  },
 };
