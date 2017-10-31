@@ -1,7 +1,8 @@
-import { configure } from '@kadira/storybook';
+import 'react-chromatic/storybook-addon'
+import {configure} from '@kadira/storybook'
 
 function loadStories() {
-  require('../stories');
+  require('../stories')
 }
 
-configure(loadStories, module);
+configure(loadStories, module)

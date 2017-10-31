@@ -19,7 +19,8 @@
     "test:dev": "concurrently \"yarn run lint -- --watch\" \"yarn run test -- --no-single-run --reporters=verbose\"",
     "clean": "rm -rf build",
     "storybook": "node ./storybook.js",
-    "prettier": "prettier --single-quote --trailing-comma es5 --bracket-spacing false --semi false --write \"{src,spec}/**/*.js\"; eslint src --fix"
+    "prettier": "prettier --single-quote --trailing-comma es5 --bracket-spacing false --semi false --write \"{src,spec}/**/*.js\"; eslint src --fix",
+    "chromatic": "chromatic test --app-code='dlg2s78n7yd' --script-name='storybook' --port='6006' --app-path='/iframe.html'"
   },
   "author": "",
   "eslintConfig": {
@@ -84,6 +85,7 @@
     "precss": "^1.4.0",
     "prettier": "^1.5.3",
     "react-addons-test-utils": "^15.0.2",
+    "react-chromatic": "^0.5.12",
     "resolve-url-loader": "^1.6.0",
     "sass-loader": "^3.2.0",
     "sinon": "^1.17.4",
